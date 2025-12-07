@@ -7,13 +7,13 @@ use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
 use std::io::Write;
+
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-28
+Gaurav Sablok,
+codeprog@icloud.com
 */
-#[tokio::main]
-pub async fn variantaccumulateplot(path1: &str) -> Result<String, Box<dyn Error>> {
+
+pub fn variantaccumulateplot(path1: &str) -> Result<String, Box<dyn Error>> {
     let mut filesplit: Vec<VariantAccumulate> = Vec::new();
     let mut fileversion: HashSet<String> = HashSet::new();
     for i in fs::read_dir(path1)? {

@@ -7,10 +7,10 @@ use std::env;
 use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-28
+Gaurav Sablok,
+codeprog@icloud.com
 */
 #[tokio::main]
 pub async fn variantdatabase(

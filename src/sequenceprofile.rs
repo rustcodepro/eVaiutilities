@@ -6,13 +6,13 @@ use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 use std::process::Command;
+
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-28
+Gaurav Sablok,
+codeprog@icloud.com
 */
-#[tokio::main]
-pub async fn sequence(
+
+pub fn sequence(
     pathacmg: &str,
     pathfasta: &str,
     upstream: usize,

@@ -8,13 +8,11 @@ use std::io::BufReader;
 use std::io::Write;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-28
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn altrefallelesearch(
+pub fn altrefallelesearch(
     path1: &str,
     variant: &str,
     altallele: &str,

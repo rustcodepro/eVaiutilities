@@ -68,17 +68,34 @@ fn main() {
     println!("{}", figure.unwrap());
     let argsparse = CommandParse::parse();
     match &argsparse.command {
-        Commands::VariantAnalyzer { acmgfile, tsvfile } => {
-            let command = genomemap(acmgfile, tsvfile).unwrap();
-            println!("The file has been converted: {:?}", command);
+        Commands::VariantAnalyzer {
+            acmgfile,
+            tsvfile,
+            threads,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = genomemap(acmgfile, tsvfile).unwrap();
+                println!("The file has been converted: {:?}", command);
+            })
         }
         Commands::VariantFilter {
             acmgfile,
             tsvfile,
             variant,
+            threads,
         } => {
-            let command = variantanalyzer(acmgfile, tsvfile, variant).unwrap();
-            println!("The filtered variant file has been written:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = variantanalyzer(acmgfile, tsvfile, variant).unwrap();
+                println!("The filtered variant file has been written:{}", command);
+            });
         }
         Commands::VariantDatabase {
             acmgfile,
@@ -88,24 +105,43 @@ fn main() {
             let command = variantdatabase(acmgfile, tsvfile, databaseurl).unwrap();
             println!("The variant database has been created:{}", command);
         }
-        Commands::GTFAnalyze { gtffile } => {
-            let command = analyzegtf(gtffile).unwrap();
-            println!("The gtf has been analyzed:{:?}", command);
+        Commands::GTFAnalyze { gtffile, threads } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = analyzegtf(gtffile).unwrap();
+                println!("The gtf has been analyzed:{:?}", command);
+            })
         }
         Commands::VariantSeq {
             acmgfile,
             fastafile,
+            threads,
         } => {
-            let command = fastagtf(acmgfile, fastafile).unwrap();
-            println!("The sequences have been written:{:?}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = fastagtf(acmgfile, fastafile).unwrap();
+                println!("The sequences have been written:{:?}", command);
+            })
         }
         Commands::DownloadGenome { input } => {
             let command = downloadgenome(input).unwrap();
             println!("The genome has been downloaded:{:?}", command);
         }
-        Commands::ACMGTranscript { acmgfile } => {
-            let command = acmgannotate(acmgfile).unwrap();
-            println!("The transcript ids have been written:{:?}", command);
+        Commands::ACMGTranscript { acmgfile, threads } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = acmgannotate(acmgfile).unwrap();
+                println!("The transcript ids have been written:{:?}", command);
+            });
         }
         Commands::SequenceProfile {
             acmgfile,
@@ -113,26 +149,48 @@ fn main() {
             upstream,
             downstream,
             variant,
+            threads,
         } => {
-            let command = sequence(acmgfile, fastafile, *upstream, *downstream, variant).unwrap();
-            println!("The sequences have been written:{:?}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command =
+                    sequence(acmgfile, fastafile, *upstream, *downstream, variant).unwrap();
+                println!("The sequences have been written:{:?}", command);
+            });
         }
         Commands::PopulationVariantSearch {
             acmgdir,
             variant,
             name,
+            threads,
         } => {
-            let command = population(acmgdir, variant, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = population(acmgdir, variant, name.to_string()).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::CoordinateSearch {
             acmgdir,
             start,
             end,
             name,
+            threads,
         } => {
-            let command = coordinatesearch(acmgdir, *start, *end, name).unwrap();
-            println!("The command has been finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = coordinatesearch(acmgdir, *start, *end, name).unwrap();
+                println!("The command has been finished:{}", command);
+            });
         }
         Commands::CoordinateSearchVariant {
             acmgdir,
@@ -140,43 +198,79 @@ fn main() {
             end,
             variant,
             name,
+            threads,
         } => {
-            let command = coordinatevariantsearch(acmgdir, *start, *end, variant, name).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command =
+                    coordinatevariantsearch(acmgdir, *start, *end, variant, name).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::AnnotationSearch {
             acmgdir,
             genename,
             name,
+            threads,
         } => {
-            let command = annotationsearch(acmgdir, genename, name).unwrap();
-            println!("The command has been finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = annotationsearch(acmgdir, genename, name).unwrap();
+                println!("The command has been finished:{}", command);
+            });
         }
         Commands::PathogenicityFilter {
             acmgdir,
             start,
             end,
             name,
+            threads,
         } => {
-            let command = pathogenicityscore(acmgdir, *start, *end, name).unwrap();
-            println!("The command has completed:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = pathogenicityscore(acmgdir, *start, *end, name).unwrap();
+                println!("The command has completed:{}", command);
+            });
         }
         Commands::PopulationVariantSearcholder {
             acmgdir,
             variant,
             name,
+            threads,
         } => {
-            let command = populationolder(acmgdir, variant, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = populationolder(acmgdir, variant, name.to_string()).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::CoordinateSearcholder {
             acmgdir,
             start,
             end,
             name,
+            threads,
         } => {
-            let command = coordinatesearcholder(acmgdir, *start, *end, name).unwrap();
-            println!("The command has been finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = coordinatesearcholder(acmgdir, *start, *end, name).unwrap();
+                println!("The command has been finished:{}", command);
+            });
         }
         Commands::CoordinateSearcVariantholder {
             acmgdir,
@@ -184,87 +278,159 @@ fn main() {
             end,
             variant,
             name,
+            threads,
         } => {
-            let command =
-                coordinatevariantsearcholder(acmgdir, *start, *end, variant, name).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command =
+                    coordinatevariantsearcholder(acmgdir, *start, *end, variant, name).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
-
         Commands::AnnotationSearcholder {
             acmgdir,
             genename,
             name,
+            threads,
         } => {
-            let command = annotationsearcholder(acmgdir, genename, name).unwrap();
-            println!("The command has been finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = annotationsearcholder(acmgdir, genename, name).unwrap();
+                println!("The command has been finished:{}", command);
+            });
         }
         Commands::PathogenicityFilterolder {
             acmgdir,
             start,
             end,
             name,
+            threads,
         } => {
-            let command = pathogenicityscoreolder(acmgdir, *start, *end, name).unwrap();
-            println!("The command has completed:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = pathogenicityscoreolder(acmgdir, *start, *end, name).unwrap();
+                println!("The command has completed:{}", command);
+            });
         }
         Commands::TranscriptSearch {
             acmgdir,
             transcript,
             name,
+            threads,
         } => {
-            let command = transcriptsearch(acmgdir, transcript, name).unwrap();
-            println!("The command has been completed:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = transcriptsearch(acmgdir, transcript, name).unwrap();
+                println!("The command has been completed:{}", command);
+            });
         }
         Commands::TranscriptSearcholder {
             acmgdir,
             transcript,
             name,
+            threads,
         } => {
-            let command = transcriptsearcholder(acmgdir, transcript, name).unwrap();
-            println!(
-                "The command has finished and the files have been written:{}",
-                command
-            );
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = transcriptsearcholder(acmgdir, transcript, name).unwrap();
+                println!(
+                    "The command has finished and the files have been written:{}",
+                    command
+                );
+            });
         }
         Commands::AltAllele {
             acmgdir,
             refallele,
             name,
+            threads,
         } => {
-            let command = altallelesearch(acmgdir, refallele, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = altallelesearch(acmgdir, refallele, name.to_string()).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::AltRefAllele {
             acmgdir,
             refallele,
             altallele,
             name,
+            threads,
         } => {
-            let command =
-                altrefallelesearch(acmgdir, refallele, altallele, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command =
+                    altrefallelesearch(acmgdir, refallele, altallele, name.to_string()).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::AltAlleleOlder {
             acmgdir,
             refallele,
             name,
+            threads,
         } => {
-            let command = altalleleoldersearch(acmgdir, refallele, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = altalleleoldersearch(acmgdir, refallele, name.to_string()).unwrap();
+                println!("The command has finished:{}", command);
+            });
         }
         Commands::AltRefAlleleOlder {
             acmgdir,
             refallele,
             altallele,
             name,
+            threads,
         } => {
-            let command =
-                altrefalleleoldersearch(acmgdir, refallele, altallele, name.to_string()).unwrap();
-            println!("The command has finished:{}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command =
+                    altrefalleleoldersearch(acmgdir, refallele, altallele, name.to_string())
+                        .unwrap();
+                println!("The command has finished:{}", command);
+            })
         }
-        Commands::VariantPlotter { pathfolder } => {
-            let command = variantaccumulateplot(pathfolder).unwrap();
-            println!("The command has finished: {}", command);
+        Commands::VariantPlotter {
+            pathfolder,
+            threads,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = variantaccumulateplot(pathfolder).unwrap();
+                println!("The command has finished: {}", command);
+            });
         }
     }
 }

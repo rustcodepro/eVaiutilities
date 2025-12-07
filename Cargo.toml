@@ -1,19 +1,20 @@
 [package]
 name = "eVaiutilities"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2024"
 readme = "README.md"
 license = "MIT"
 authors = ["Gaurav Sablok <codeprog@icloud.com>"]
 description = "variant analyzer for human genomics"
-homepage = "https://github.com/omicscode/eVaiutilities"
-repository = "https://github.com/omicscode/eVaiutilities"
+homepage = "https://github.com/rustcodepro/eVaiutilities"
+repository = "https://github.com/rustcodepro/eVaiutilities"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }
 cmd_lib = "1.9.5"
 figlet-rs = "0.1.5"
 plotpy = "1.13.0"
+rayon = "1.11.0"
 serde = "1.0.219"
 sqlx = { version = "0.8", features = ["postgres", "runtime-tokio-native-tls"] }
 tokio = { version = "1.47.1", features = ["full"] }

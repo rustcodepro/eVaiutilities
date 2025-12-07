@@ -8,13 +8,11 @@ use std::io::BufReader;
 use std::io::Write;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-31
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn pathogenicityscoreolder(
+pub fn pathogenicityscoreolder(
     path1: &str,
     value: f32,
     valueend: f32,

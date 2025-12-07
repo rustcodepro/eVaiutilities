@@ -9,13 +9,11 @@ use std::io::BufReader;
 use std::io::Write;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-12
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn genomemap(path1: &str, path2: &str) -> Result<String, Box<dyn Error>> {
+pub fn genomemap(path1: &str, path2: &str) -> Result<String, Box<dyn Error>> {
     let fileopen = File::open(path1).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut filesplit: Vec<Genomeanalyzer> = Vec::new();

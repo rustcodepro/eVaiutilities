@@ -6,13 +6,11 @@ use std::path::Path;
 use std::process::Command;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-19
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn downloadgenome(input: &str) -> Result<String, Box<dyn Error>> {
+pub fn downloadgenome(input: &str) -> Result<String, Box<dyn Error>> {
     if input == "yes" {
         let _ = fs::create_dir("./download").unwrap();
         let newpath = Path::new("./download");

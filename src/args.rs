@@ -24,6 +24,8 @@ pub enum Commands {
         acmgfile: String,
         /// provide the path to the tsv file
         tsvfile: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// filter the variants
     VariantFilter {
@@ -33,6 +35,8 @@ pub enum Commands {
         tsvfile: String,
         /// provide the variant
         variant: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// create variant database
     VariantDatabase {
@@ -47,6 +51,8 @@ pub enum Commands {
     GTFAnalyze {
         /// path to the gtf file
         gtffile: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// prepare the variant seq annotation.
     VariantSeq {
@@ -54,6 +60,8 @@ pub enum Commands {
         acmgfile: String,
         /// provide fasta file
         fastafile: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// download the human genome
     DownloadGenome { input: String },
@@ -61,6 +69,8 @@ pub enum Commands {
     ACMGTranscript {
         /// provide the ACMG file
         acmgfile: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// sequence profiling
     SequenceProfile {
@@ -74,6 +84,8 @@ pub enum Commands {
         downstream: usize,
         /// variant
         variant: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search for the variant across population
     PopulationVariantSearch {
@@ -83,6 +95,8 @@ pub enum Commands {
         variant: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to coordinates
     CoordinateSearch {
@@ -94,6 +108,8 @@ pub enum Commands {
         end: usize,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to coordinates and variant
     CoordinateSearchVariant {
@@ -107,6 +123,8 @@ pub enum Commands {
         variant: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to annotation
     AnnotationSearch {
@@ -116,6 +134,8 @@ pub enum Commands {
         genename: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// pathogenicity filter
     PathogenicityFilter {
@@ -127,6 +147,8 @@ pub enum Commands {
         end: f32,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search for the variant across population older version
     PopulationVariantSearcholder {
@@ -136,6 +158,8 @@ pub enum Commands {
         variant: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to coordinates older version
     CoordinateSearcholder {
@@ -147,6 +171,8 @@ pub enum Commands {
         end: usize,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to coordinates and variant older version
     CoordinateSearcVariantholder {
@@ -160,6 +186,8 @@ pub enum Commands {
         variant: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to annotation older version
     AnnotationSearcholder {
@@ -169,6 +197,8 @@ pub enum Commands {
         genename: String,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// pathogenicity filter older version
     PathogenicityFilterolder {
@@ -180,6 +210,8 @@ pub enum Commands {
         end: f32,
         /// analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search by the specific transcript
     TranscriptSearch {
@@ -189,6 +221,8 @@ pub enum Commands {
         transcript: String,
         /// name of the analysis
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search by the specific transcript older
     TranscriptSearcholder {
@@ -198,6 +232,8 @@ pub enum Commands {
         transcript: String,
         /// name of the analysis
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search for the ref allele
     AltAllele {
@@ -207,6 +243,8 @@ pub enum Commands {
         refallele: String,
         /// provide the analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to ref allele and alt allele
     AltRefAllele {
@@ -218,6 +256,8 @@ pub enum Commands {
         altallele: String,
         /// provide the analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search for the ref allele older version
     AltAlleleOlder {
@@ -227,6 +267,8 @@ pub enum Commands {
         refallele: String,
         /// provide the analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// search according to ref allele and alt allele older version
     AltRefAlleleOlder {
@@ -238,10 +280,14 @@ pub enum Commands {
         altallele: String,
         /// provide the analysis name
         name: String,
+        /// threads for the analysis
+        threads: String,
     },
     /// accumulate all variants for the plots
     VariantPlotter {
         /// provide the path to the folder
         pathfolder: String,
+        /// threads for the analysis
+        threads: String,
     },
 }

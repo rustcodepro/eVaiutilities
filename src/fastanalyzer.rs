@@ -6,13 +6,11 @@ use std::io::{BufRead, BufReader, Write};
 use std::process::Command;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
-Date: 2025-3-18
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn fastagtf(pathacmg: &str, pathfasta: &str) -> Result<String, Box<dyn Error>> {
+pub fn fastagtf(pathacmg: &str, pathfasta: &str) -> Result<String, Box<dyn Error>> {
     let fastafile = File::open(pathfasta).expect("file not present");
     let fastaread = BufReader::new(fastafile);
     let mut vecfastaid: Vec<String> = Vec::new();
