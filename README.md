@@ -80,20 +80,20 @@ Options:
  download-genome yes 
  acmg-transcript sample1.tsv 4
  sequence-profile sample1.tsv sample.fasta 10 10 4
- population-variant-search ./testfiles/newversion-population G samplename 4
- coordinate-search ./testfiles/newversion-population 14464 16495 samplename 4
- annotation-search ./testfiles/newversion-population AL645608.6 samplename 4
- pathogenicity-filter ./testfiles/newversion-population 0.0 1.5 samplename 4
- population-variant-searcholder ./testfiles/oldversion-population G samplename 4
- coordinate-searcholder ./testfiles/oldversion-population 14464 16495 samplename 4
- annotation-searcholder ./testfiles/oldversion-population WASH7P samplename 4
- pathogenicity-filterolder ./testfiles/oldversion-population 0 1.5 samplename 4
- transcript-search ./testfiles/newversion-population ENST00000635509.2 samplename 4
- alt-allele ./testfiles/newversion-population T samplename 4
- alt-allele-older ./testfiles/oldversion-population T samplename 4
- alt-ref-allele ./testfiles/newversion-population A T samplename 4
- alt-ref-allele-older ./testfiles/oldversion-population A T samplename 4
- variant-plotter ./testfiles/variant-accumulation 4
+ population-variant-search newversion-population G samplename 4
+ coordinate-search newversion-population 14464 16495 samplename 4
+ annotation-search newversion-population AL645608.6 samplename 4
+ pathogenicity-filter newversion-population 0.0 1.5 samplename 4
+ population-variant-searcholder oldversion-population G samplename 4
+ coordinate-searcholder oldversion-population 14464 16495 samplename 4
+ annotation-searcholder oldversion-population WASH7P samplename 4
+ pathogenicity-filterolder oldversion-population 0 1.5 samplename 4
+ transcript-search newversion-population ENST00000635509.2 samplename 4
+ alt-allele newversion-population T samplename 4
+ alt-allele-older oldversion-population T samplename 4
+ alt-ref-allele newversion-population A T samplename 4
+ alt-ref-allele-older oldversion-population A T samplename 4
+ variant-plotter variant-accumulation 4
 ```
 
 - Below you will find a detailed usage of the eVaiutilities.
